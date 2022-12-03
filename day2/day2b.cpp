@@ -13,7 +13,6 @@ int main(){
     for (string line; getline(contents, line);){
         lines.push_back(line);
     }
-
     map<char, int> val;
 
     val['A'] = 0; //Rock
