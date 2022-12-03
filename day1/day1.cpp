@@ -29,4 +29,5 @@ int main()
         }
     }
     cout << max_val[0] + max_val[1] + max_val[2] << endl;
+    return 0;
 }
