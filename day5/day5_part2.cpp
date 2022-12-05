@@ -72,9 +72,18 @@ int main() {
         int itemsToMove = move_values(lines[i])[0];
         int from = move_values(lines[i])[1];
         int to = move_values(lines[i])[2];
+
+        stack <string> newStack;
+
         for (int k = 0; k < itemsToMove; k++){
             string itemToMove = stacks[from-1].top();
             stacks[from-1].pop();
+            newStack.push(itemToMove);
+        }
+
+        for (int k = 0; k < itemsToMove; k++){
+            string itemToMove = newStack.top();
+            newStack.pop();
             stacks[to-1].push(itemToMove);
         }
 
