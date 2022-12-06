@@ -3,11 +3,12 @@
 
 using namespace std;
 
-int main(){
+vector <string> readFiles(string fileLocation){
     vector <string> lines;
-    ifstream contents("input.txt");
+    ifstream contents(fileLocation);
     for(string line; getline(contents, line);){
         lines.push_back(line);
     }
+    return lines;
 }
 
