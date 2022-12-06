@@ -1,7 +1,9 @@
+
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <stack> 
+#include <regex>
 
 using namespace std;
 
@@ -38,23 +40,20 @@ vector <stack <string>> fixStacks (vector <string> lines, int stackStart){
 int* move_values (string line){
     static int a[3];
 
-    for (int i = 0; i < line.size() - 1; i++){
-        if (line[i] == 'm' && line[i+1] == 'o'){
-            a[0] = line[i+5] - 48;
-            if (line[i+6] != ' '){
-                a[0] *= 10;
-                a[0]+=line[i+6]-48;
-            }
-        }
-        else if (line[i] == 'f' && line[i+1] == 'r'){
-            a[1] = line[i+5] - 48;
-        }
-        else if (line[i] == 't' && line[i+1] == 'o'){
-            a[2] = line[i+3] - 48;
-        }
-    }
-    return a;
+    regex move("move ([0-9]+)"); 
+    smatch m;
+    regex_search(line, m, move);
+    a[0] = stoi(m[1]);
 
+    regex from("from ([0-9]+)"); 
+    regex_search(line, m, from);
+    a[1] = stoi(m[1]);
+    
+    regex to("to ([0-9]+)"); 
+    regex_search(line, m, to);
+    a[2] = stoi(m[1]);
+
+    return a;
 }
 
 int main() {
