@@ -15,7 +15,7 @@ int main() {
         map<char, int> charCount;
         bool duplicateFound = false;
         for (char c : linesub){
-            if (charCount.find(c) == charCount.end()){
+            if (!charCount.count(c)){
                 charCount[c] = 1;
             }
             else{
