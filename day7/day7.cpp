@@ -6,31 +6,29 @@
 
 using namespace std; 
 
-map <string, int> folderSize;
 map <string, vector<string>> folderContents;
 
 int sizeOfFolder(string folderName){
     int totalSize = 0;
     vector <string> folderContent = folderContents[folderName];
     for (int i = 0; i < folderContent.size(); i++){
-        if (folderContent[i].substr(0,3) == "dir"){
+        regex pattern("dir");
+        smatch m; 
+        regex_search(folderContent[i],m, pattern);
+        if (m[0] != ""){
             regex pattern ("dir ([a-z0-9]+)");
-            smatch m;
-            regex_search(folderContent[i],m,pattern);
-            if (folderSize.count(m[1])){
-                totalSize += folderSize[m[1]];
-            }
-            // else{
-            //     totalSize += sizeOfFolder(m[1]);
-            // }
+            smatch z;
+            regex_search(folderContent[i],z,pattern);
+            totalSize += sizeOfFolder(z[1]);
         }
         else{
             regex pattern ("([0-9]+)");
-            smatch m;
-            regex_search(folderContent[i],m,pattern);
-            totalSize += stoi(m[1]);
+            smatch z;
+            regex_search(folderContent[i],z,pattern);
+            totalSize += stoi(z[1]);
         }
     }
+    cout << totalSize << endl;
     return totalSize;
 }
 
@@ -52,19 +50,16 @@ map <string ,vector <string>> getFolderContents(vector <string> lines){
 }
 
 int main(){
-    vector <string> lines = readFiles("input.txt");
+    vector <string> lines = readFiles("input2.txt");
     folderContents = getFolderContents(lines);
 
-    for (auto s: folderContents){
-        folderSize[s.first] = sizeOfFolder(s.first);
-        int x;
-    }
+    sizeOfFolder("/"); 
     int totalSize = 0;
-    for (auto s: folderSize){
-        if (folderSize[s.first] <= 100000){
-            totalSize += folderSize[s.first];
-        }
-    }
+    // for (auto s: folderSize){
+    //     if (folderSize[s.first] <= 100000){
+    //         totalSize += folderSize[s.first];
+    //     }
+    // }
     cout << totalSize << endl;
     return 0;
 }
