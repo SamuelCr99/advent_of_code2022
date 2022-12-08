@@ -10,7 +10,6 @@ int totalSize = 0;
 int maxDepth = 0;
 vector <int> directorySizes;
 
-
 vector <string> getFolderContent(string folderName){
     vector <string> content; 
     for (int i = maxDepth; i < lines.size(); i++){
